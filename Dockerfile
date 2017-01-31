@@ -4,7 +4,8 @@ MAINTAINER Konrad Mosoń <morsik@darkserver.it>
 RUN rpm --import http://mirror.centos.org/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7 && \
     yum update -y && \
     yum install -y httpd && \
-    yum clean all
+    yum clean all && \
+    echo "# This file was cleaned when building Docker image" > /etc/httpd/conf.d/welcome.conf
 
 WORKDIR /etc/httpd
 
