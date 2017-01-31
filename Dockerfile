@@ -11,4 +11,5 @@ WORKDIR /etc/httpd
 EXPOSE 80
 
 ADD entrypoint.sh /entrypoint
+RUN chmod +x /entrypoint
 CMD ["/entrypoint"]
