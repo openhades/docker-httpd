@@ -10,7 +10,7 @@ if [ "${HTTPD_HTACCESS}" ]; then
 cat > /etc/httpd/conf.d/99-httpd-htaccess.conf << EOF
 <Directory "/var/www/html">
     AllowOverride All
-</Directory>" > /etc/httpd/conf.d/99-httpd-htaccess.conf
+</Directory>
 EOF
 fi
 
