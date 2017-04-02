@@ -18,13 +18,13 @@ EOF
 fi
 
 # configure custom user
-if [ "${HTTPD_UID}" ]; then
-    echo "User #${HTTPD_UID}" >> "${CONF}"
+if [ "${CUSTOM_UID}" ]; then
+    echo "User #${CUSTOM_UID}" >> "${CONF}"
 fi
 
 # configure custom user
-if [ "${HTTPD_GID}" ]; then
-    echo "Group #${HTTPD_GID}" >> "${CONF}"
+if [ "${CUSTOM_GID}" ]; then
+    echo "Group #${CUSTOM_GID}" >> "${CONF}"
 fi
 
 exec /usr/sbin/apachectl -DFOREGROUND
