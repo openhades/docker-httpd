@@ -5,6 +5,7 @@
 # if it thinks it is already running.
 rm -rf /run/httpd/* /tmp/httpd*
 
+# configure httpd
 CONF="/etc/httpd/conf.d/99-httpd-docker.conf"
 > "${CONF}" 
 
@@ -17,14 +18,16 @@ cat >> "${CONF}" << EOF
 EOF
 fi
 
-# configure custom user
+# configure custom user and group
 if [ "${CUSTOM_UID}" ]; then
-    echo "User #${CUSTOM_UID}" >> "${CONF}"
-fi
-
-# configure custom user
-if [ "${CUSTOM_GID}" ]; then
-    echo "Group #${CUSTOM_GID}" >> "${CONF}"
+    echo "User ohc" >> "${CONF}"
+    if [ "${CUSTOM_GID}" ]; then
+        groupadd -g "${CUSTOM_GID}" ohc
+        useradd -r -u "${CUSTOM_UID}" -g "${CUSTOM_GID}" -d /var/www/html -s /bin/nologin ohc
+        echo "Group ohc" >> "${CONF}"
+    else
+        useradd -r -u "${CUSTOM_UID}" -d /var/www/html -s /bin/nologin ohc
+    fi
 fi
 
 exec /usr/sbin/apachectl -DFOREGROUND
